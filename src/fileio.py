@@ -8,7 +8,7 @@ from .constants import DEFAULT_MIDI_HEADER_SIZE
 from .util import read_varlen, write_varlen
 
 
-class FileReader(object):
+class FileReader:
     def read(self, midifile):
         pattern = self.parse_file_header(midifile)
         for track in pattern:

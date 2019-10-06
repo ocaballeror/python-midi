@@ -1,7 +1,7 @@
 import math
 
 
-class EventRegistry(object):
+class EventRegistry:
     Events = {}
     MetaEvents = {}
 
@@ -25,7 +25,7 @@ class EventRegistry(object):
     register_event = classmethod(register_event)
 
 
-class AbstractEvent(object):
+class AbstractEvent:
     __slots__ = ['tick', 'data']
     name = "Generic MIDI Event"
     length = 0
