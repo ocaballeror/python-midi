@@ -2,17 +2,17 @@ def read_varlen(data):
     NEXTBYTE = 1
     value = 0
     while NEXTBYTE:
-        chr = next(data)
+        char = next(data)
         # is the hi-bit set?
-        if not (chr & 0x80):
+        if not (char & 0x80):
             # no next BYTE
             NEXTBYTE = 0
         # mask out the 8th bit
-        chr = chr & 0x7F
+        char = char & 0x7F
         # shift last value up 7 bits
         value = value << 7
         # add new value
-        value += chr
+        value += char
     return value
 
 
