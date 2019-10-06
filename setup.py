@@ -5,16 +5,27 @@ from setuptools import setup, Extension
 import setuptools.command.install
 
 __base__ = {
-    'name':'midi', 
-    'version':'v0.2.3',
-    'description':'Python MIDI API',
-    'author':'giles hall',
-    'author_email':'ghall@csh.rit.edu',
-    'package_dir':{'midi':'src'},
-    'py_modules':['midi.containers', 'midi.__init__', 'midi.events', 'midi.util', 'midi.fileio', 'midi.constants'],
-    'ext_modules':[],
-    'ext_package':'',
-    'scripts':['scripts/mididump.py', 'scripts/mididumphw.py', 'scripts/midiplay.py'],
+    'name': 'midi',
+    'version': 'v0.2.3',
+    'description': 'Python MIDI API',
+    'author': 'giles hall',
+    'author_email': 'ghall@csh.rit.edu',
+    'package_dir': {'midi': 'src'},
+    'py_modules': [
+        'midi.containers',
+        'midi.__init__',
+        'midi.events',
+        'midi.util',
+        'midi.fileio',
+        'midi.constants',
+    ],
+    'ext_modules': [],
+    'ext_package': '',
+    'scripts': [
+        'scripts/mididump.py',
+        'scripts/mididumphw.py',
+        'scripts/midiplay.py',
+    ],
 }
 
 # this kludge ensures we run the build_ext first before anything else
@@ -23,6 +34,7 @@ class Install_Command_build_ext_first(setuptools.command.install.install):
     def run(self):
         self.run_command("build_ext")
         return setuptools.command.install.install.run(self)
+
 
 def setup_alsa(ns):
     # scan for alsa include directory
@@ -35,7 +47,9 @@ def setup_alsa(ns):
             alsadir = _dir
             break
     if not alsadir:
-        print("Warning: could not find asoundlib.h, not including ALSA sequencer support!")
+        print(
+            "Warning: could not find asoundlib.h, not including ALSA sequencer support!"
+        )
         return
     srclist = ["src/sequencer_alsa/sequencer_alsa.i"]
     include_arg = "-I%s" % alsadir
@@ -54,18 +68,19 @@ def setup_alsa(ns):
     ns['ext_package'] = 'midi.sequencer'
     ns['cmdclass'] = {'install': Install_Command_build_ext_first}
 
+
 def configure_platform():
     from sys import platform
+
     ns = __base__.copy()
     # currently, only the ALSA sequencer is supported
     if platform.startswith('linux'):
         setup_alsa(ns)
         pass
     else:
-        print "No sequencer available for '%s' platform." % platform
+        print("No sequencer available for '%s' platform." % platform)
     return ns
+
 
 if __name__ == "__main__":
     setup(**configure_platform())
-
-
