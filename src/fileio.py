@@ -1,10 +1,11 @@
-from warnings import *
-
-from .containers import *
-from .events import *
+from warnings import warn
 from struct import unpack, pack
-from .constants import *
-from .util import *
+
+from .containers import Pattern, Track
+from .events import MetaEvent, Event, UnknownMetaEvent, SysexEvent
+from .events import EventRegistry
+from .constants import DEFAULT_MIDI_HEADER_SIZE
+from .util import read_varlen, write_varlen
 
 
 class FileReader(object):
