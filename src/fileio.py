@@ -16,7 +16,7 @@ class FileReader(object):
 
     def parse_file_header(self, midifile):
         # First four bytes are MIDI header
-        magic = midifile.read(4)
+        magic = midifile.read(4).decode('utf8')
         if magic != 'MThd':
             raise TypeError("Bad header in MIDI file.")
         # next four bytes are header size
@@ -37,7 +37,7 @@ class FileReader(object):
 
     def parse_track_header(self, midifile):
         # First four bytes are Track header
-        magic = midifile.read(4)
+        magic = midifile.read(4).decode('utf8')
         if magic != 'MTrk':
             raise TypeError("Bad track header in MIDI file: " + magic)
         # next four bytes are track size
