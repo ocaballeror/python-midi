@@ -56,7 +56,7 @@ class AbstractEvent(metaclass=EventMetaent):
                 EventRegistry.register_event(cls, bases)
 
     def __init__(self, **kw):
-        if type(self.length) == int:
+        if isinstance(self.length, int):
             defdata = [0] * self.length
         else:
             defdata = []
