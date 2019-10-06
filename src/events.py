@@ -116,14 +116,12 @@ class Event(AbstractEvent):
     is_event = classmethod(is_event)
 
 
-"""
-MetaEvent is a special subclass of Event that is not meant to
-be used as a concrete class.  It defines a subset of Events known
-as the Meta events.
-"""
-
-
 class MetaEvent(AbstractEvent):
+    """
+    MetaEvent is a special subclass of Event that is not meant to
+    be used as a concrete class.  It defines a subset of Events known
+    as the Meta events.
+    """
     statusmsg = 0xFF
     metacommand = 0x0
     name = 'Meta Event'
@@ -134,14 +132,12 @@ class MetaEvent(AbstractEvent):
     is_event = classmethod(is_event)
 
 
-"""
-NoteEvent is a special subclass of Event that is not meant to
-be used as a concrete class.  It defines the generalities of NoteOn
-and NoteOff events.
-"""
-
-
 class NoteEvent(Event):
+    """
+    NoteEvent is a special subclass of Event that is not meant to
+    be used as a concrete class.  It defines the generalities of NoteOn
+    and NoteOff events.
+    """
     length = 2
 
     def get_pitch(self):
