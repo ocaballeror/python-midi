@@ -1,4 +1,5 @@
 import midi
+from midi.constants import G_3
 
 # Instantiate a MIDI Pattern (contains a list of tracks)
 pattern = midi.Pattern()
@@ -7,10 +8,10 @@ track = midi.Track()
 # Append the track to the pattern
 pattern.append(track)
 # Instantiate a MIDI note on event, append it to the track
-on = midi.NoteOnEvent(tick=0, velocity=20, pitch=midi.G_3)
+on = midi.NoteOnEvent(tick=0, velocity=20, pitch=G_3)
 track.append(on)
 # Instantiate a MIDI note off event, append it to the track
-off = midi.NoteOffEvent(tick=100, pitch=midi.G_3)
+off = midi.NoteOffEvent(tick=100, pitch=G_3)
 track.append(off)
 # Add the end of track event, append it to the track
 eot = midi.EndOfTrackEvent(tick=1)
