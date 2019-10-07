@@ -17,13 +17,9 @@ class TestMIDI(unittest.TestCase):
         midi.write_midifile("mary.mid", pattern1)
         pattern2 = midi.read_midifile("mary.mid")
         self.assertEqual(len(pattern1), len(pattern2))
-        for track_idx in range(len(pattern1)):
-            self.assertEqual(
-                len(pattern1[track_idx]), len(pattern2[track_idx])
-            )
-            for event_idx in range(len(pattern1[track_idx])):
-                event1 = pattern1[track_idx][event_idx]
-                event2 = pattern2[track_idx][event_idx]
+        for track1, track2 in zip(pattern1, pattern2):
+            self.assertEqual(len(track1), len(track2))
+            for event1, event2 in zip(track1, track2):
                 self.assertEqual(event1.tick, event2.tick)
                 self.assertEqual(event1.data, event2.data)
 
