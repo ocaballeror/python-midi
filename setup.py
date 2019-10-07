@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='midi',
-    version='v0.2.3',
+    version='v0.3.0',
     description='Python MIDI API',
     author='giles hall',
     author_email='ghall@csh.rit.edu',
