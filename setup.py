@@ -11,7 +11,5 @@ setup(
     packages=['midi'],
     scripts=[
         'scripts/mididump.py',
-        'scripts/mididumphw.py',
-        'scripts/midiplay.py',
     ],
 )

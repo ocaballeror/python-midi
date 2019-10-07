@@ -440,8 +440,3 @@ class KeySignatureEvent(MetaEvent):
         self.data[1] = val
 
     minor = property(get_minor, set_minor)
-
-
-class SequencerSpecificEvent(MetaEvent):
-    name = 'Sequencer Specific'
-    metacommand = 0x7F
