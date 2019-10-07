@@ -107,7 +107,7 @@ class Sequencer(object):
             self.alsa_sequencer_stream,
             self.alsa_sequencer_mode,
         )
-        if ret == None:
+        if ret is None:
             # XXX: global error
             self._error(ret)
         self.client = ret

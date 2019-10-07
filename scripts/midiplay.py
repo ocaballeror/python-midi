@@ -37,7 +37,7 @@ events.sort()
 seq.start_sequencer()
 for event in events:
     buf = seq.event_write(event, False, False, True)
-    if buf == None:
+    if buf is None:
         continue
     if buf < 1000:
         time.sleep(0.5)
