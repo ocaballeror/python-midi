@@ -4,3 +4,5 @@ build
 .*.sw?
 dist
 *.egg-info
+*.mid
+*.midi
