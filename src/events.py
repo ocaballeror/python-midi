@@ -5,6 +5,7 @@ class EventRegistry:
     Events = {}
     MetaEvents = {}
 
+    @classmethod
     def register_event(cls, event, bases, kwargs):
         if (Event in bases) or (NoteEvent in bases):
             assert kwargs['statusmsg'] not in cls.Events, (
@@ -21,8 +22,6 @@ class EventRegistry:
             raise ValueError(
                 "Unknown bases class in event type: " + kwargs['name']
             )
-
-    register_event = classmethod(register_event)
 
 
 class EventMeta(type):
@@ -100,10 +99,9 @@ class Event(AbstractEvent):
     def __repr__(self):
         return self.__baserepr__(['channel'])
 
+    @classmethod
     def is_event(cls, statusmsg):
         return cls.statusmsg == (statusmsg & 0xF0)
-
-    is_event = classmethod(is_event)
 
 
 class MetaEvent(AbstractEvent):
@@ -116,10 +114,9 @@ class MetaEvent(AbstractEvent):
     metacommand = 0x0
     name = 'Meta Event'
 
+    @classmethod
     def is_event(cls, statusmsg):
         return statusmsg == 0xFF
-
-    is_event = classmethod(is_event)
 
 
 class NoteEvent(Event):
@@ -250,10 +247,9 @@ class SysexEvent(Event):
     name = 'SysEx'
     length = 'varlen'
 
+    @classmethod
     def is_event(cls, statusmsg):
         return cls.statusmsg == statusmsg
-
-    is_event = classmethod(is_event)
 
 
 class SequenceNumberMetaEvent(MetaEvent):
