@@ -133,11 +133,11 @@ class FileWriter(object):
         if isinstance(event, MetaEvent):
             ret += chr(event.statusmsg) + chr(event.metacommand)
             ret += write_varlen(len(event.data))
-            ret += str.join('', list(map(chr, event.data)))
+            ret += ''.join(map(chr, event.data))
         # is this event a Sysex Event?
         elif isinstance(event, SysexEvent):
             ret += chr(0xF0)
-            ret += str.join('', list(map(chr, event.data)))
+            ret += ''.join(map(chr, event.data))
             ret += chr(0xF7)
         # not a Meta MIDI event or a Sysex event, must be a general message
         elif isinstance(event, Event):
@@ -148,7 +148,7 @@ class FileWriter(object):
             ):
                 self.RunningStatus = event
                 ret += chr(event.statusmsg | event.channel)
-            ret += str.join('', list(map(chr, event.data)))
+            ret += ''.join(map(chr, event.data))
         else:
             raise ValueError("Unknown MIDI Event: " + str(event))
         return ret
