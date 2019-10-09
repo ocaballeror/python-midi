@@ -66,7 +66,7 @@ class Event(AbstractEvent):
         if 'channel' not in kw:
             kw = kw.copy()
             kw['channel'] = 0
-        super(Event, self).__init__(**kw)
+        super().__init__(**kw)
 
     def copy(self, **kw):
         _kw = {'channel': self.channel, 'tick': self.tick, 'data': self.data}
@@ -240,7 +240,7 @@ class SequenceNumberMetaEvent(MetaEvent):
 
 class MetaEventWithText(MetaEvent):
     def __init__(self, **kw):
-        super(MetaEventWithText, self).__init__(**kw)
+        super().__init__(**kw)
         if 'text' not in kw:
             self.text = ''.join(chr(datum) for datum in self.data)
 
@@ -303,7 +303,7 @@ class UnknownMetaEvent(MetaEvent):
     metacommand = None
 
     def __init__(self, **kw):
-        super(MetaEvent, self).__init__(**kw)
+        super().__init__(**kw)
         self.metacommand = kw['metacommand']
 
     def copy(self, **kw):
