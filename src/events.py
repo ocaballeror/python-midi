@@ -6,40 +6,25 @@ class EventRegistry:
     MetaEvents = {}
 
     @classmethod
-    def register_event(cls, event, bases, kwargs):
-        if (Event in bases) or (NoteEvent in bases):
-            assert kwargs['statusmsg'] not in cls.Events, (
-                "Event %s already registered" % kwargs['name']
+    def register_event(cls, event):
+        if issubclass(event, (Event, NoteEvent)):
+            assert event.statusmsg not in cls.Events, (
+                "Event %s already registered" % event.name
             )
-            cls.Events[kwargs['statusmsg']] = event
-        elif (MetaEvent in bases) or (MetaEventWithText in bases):
-            if kwargs['metacommand'] is not None:
-                assert kwargs['metacommand'] not in cls.MetaEvents, (
-                    "Event %s already registered" % kwargs['name']
+            cls.Events[event.statusmsg] = event
+        elif issubclass(event, (MetaEvent, MetaEventWithText)):
+            if event.metacommand is not None:
+                assert event.metacommand not in cls.MetaEvents, (
+                    "Event %s already registered" % event.name
                 )
-                cls.MetaEvents[kwargs['metacommand']] = event
+                cls.MetaEvents[event.metacommand] = event
         else:
             raise ValueError(
-                "Unknown bases class in event type: " + kwargs['name']
+                "Unknown bases class in event type: " + event.name
             )
 
 
-class EventMeta(type):
-    def __new__(cls, name, bases, kwargs):
-        new = super().__new__(cls, name, bases, kwargs)
-        if name not in (
-            'EventMeta',
-            'AbstractEvent',
-            'Event',
-            'MetaEvent',
-            'NoteEvent',
-            'MetaEventWithText',
-        ):
-            EventRegistry.register_event(new, bases, kwargs)
-        return new
-
-
-class AbstractEvent(metaclass=EventMeta):
+class AbstractEvent:
     name = "Generic MIDI Event"
     length = 0
     statusmsg = 0x0
