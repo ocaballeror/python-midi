@@ -44,7 +44,8 @@ class AbstractEvent:
             return self.tick < other.tick
         return self.data < other.data
 
-    def __baserepr__(self, keys=[]):
+    def __baserepr__(self, keys=None):
+        keys = keys or []
         keys = ['tick'] + keys + ['data']
         body = []
         for key in keys:
