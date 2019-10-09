@@ -39,12 +39,10 @@ class AbstractEvent:
         for key in kw:
             setattr(self, key, kw[key])
 
-    def __cmp__(self, other):
-        if self.tick < other.tick:
-            return -1
-        elif self.tick > other.tick:
-            return 1
-        return cmp(self.data, other.data)
+    def __lt__(self, other):
+        if self.tick != other.tick:
+            return self.tick < other.tick
+        return self.data < other.data
 
     def __baserepr__(self, keys=[]):
         keys = ['tick'] + keys + ['data']
@@ -74,12 +72,8 @@ class Event(AbstractEvent):
         _kw.update(kw)
         return self.__class__(**_kw)
 
-    def __cmp__(self, other):
-        if self.tick < other.tick:
-            return -1
-        elif self.tick > other.tick:
-            return 1
-        return 0
+    def __lt__(self, other):
+        return self.tick < other.tick
 
     def __repr__(self):
         return self.__baserepr__(['channel'])
