@@ -306,10 +306,6 @@ class UnknownMetaEvent(MetaEvent):
         super().__init__(**kw)
         self.metacommand = kw['metacommand']
 
-    def copy(self, **kw):
-        kw['metacommand'] = self.metacommand
-        return super(UnknownMetaEvent, self).copy(kw)
-
 
 class ChannelPrefixEvent(MetaEvent):
     name = 'Channel Prefix'
