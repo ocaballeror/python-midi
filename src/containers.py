@@ -43,6 +43,25 @@ class Pattern(list):
         # for calls of the form List[i:j]
         return self.__getitem__(slice(i, j))
 
+    def get_events(self):
+        """
+        Get chronologically sorted list of all the events in all the tracks in
+        this pattern.
+        """
+        was_relative = self.tick_relative
+        self.make_ticks_abs()
+        all_events = []
+        for track_idx, track in enumerate(self):
+            for event in track:
+                event.track = track_idx
+                all_events.append(event)
+        all_events = sorted(all_events, key=lambda e: e.tick)
+
+        if was_relative:
+            self.make_ticks_rel()
+        return all_events
+
+
 
 class Track(list):
     def __init__(self, events=[], tick_relative=True):
