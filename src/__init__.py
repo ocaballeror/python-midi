@@ -1,8 +1,5 @@
-from .containers import *
-from .events import *
-from struct import unpack, pack
-from .util import *
-from .fileio import *
+from .containers import Pattern, Track
+from .fileio import read_midifile, write_midifile
 
 
 def get_subclasses(base):
@@ -13,6 +10,8 @@ def get_subclasses(base):
 
 
 def populate_eventregistry():
+    from .events import AbstractEvent, Event, MetaEvent, NoteEvent
+    from .events import MetaEventWithText, EventRegistry
     events = get_subclasses(AbstractEvent).difference(
         {AbstractEvent, Event, MetaEvent, NoteEvent, MetaEventWithText}
     )
